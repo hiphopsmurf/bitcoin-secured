@@ -56,42 +56,6 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
     console.log "processing form"
     $scope.loadUrl()
 
-  $scope.doTransaction = ()->
-    tx_dest = "17Ww5bR6NGAk4AfhsDWAwHgjHRacemLcwV"
-    tx_sec = "5HvkAaBtux2M2uuxUYMFeo9RSD4N9eW5DHqAHN2Z71qU7x9KPd7"
-    tx_addr = "16FPmNu2tFfpN4yXKScGEA7FVpm4grkxd7"
-    tx_unspent = """
-        {
-           
-          "unspent_outputs":[
-          
-            {
-              "tx_hash":"dc1bd19bad9da9e14cc2f685fea52a9a10fba4712f057dcc6c1d512e9658ed9a",
-              "tx_index":64224712,
-              "tx_output_n": 1,
-              "script": "76a914399174ac8475f1e6e65c452fa85ce13755b2a1aa88ac",
-              "value": 4000000,
-              "value_hex": "3d0900",
-              "confirmations": 611
-            },
-            
-            {
-              "tx_hash":"16407c175b2e5bd0090eef4d542aba15def27c13f16e819a594df4f6123e88d1",
-              "tx_index":65018229,
-              "tx_output_n": 1, 
-              "script":"76a914399174ac8475f1e6e65c452fa85ce13755b2a1aa88ac",
-              "value": 6680000,
-              "value_hex": "65edc0",
-              "confirmations":0
-            }
-            
-          ]
-        }
-        """
-
-    txevent.doTrans(tx_dest, tx_sec, tx_addr, tx_unspent)
-    # txevent.notify("hi there")
-
 
   $scope.doTransaction()
 
