@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="js/zepto.js"></script>
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/ui-bootstrap-0.2.0.js"></script>
-	<script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script>
+	<!-- <script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script> -->
 	<script type="text/javascript" src="js/qrcode.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
 	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
@@ -31,7 +31,6 @@
               <ul class="nav">
                 <li class="active"><a href="#"><i class="icon-home"></i> Home</a></li>
                 <li><a href="#"><i class="icon-wrench"></i> Instructions</a></li>
-                <li><a href="#"><i class="icon-hdd"></i> Downloads</a></li>
                 <li><a href="#"><i class="icon-eye-open"></i> About</a></li>
                 <li><a href="#"><i class="icon-pencil"></i> Contact</a></li>
               </ul>
@@ -41,10 +40,10 @@
       </div>
 
       <!-- Example row of columns -->
-      <div class="row-fluid">
+      <div class="row-fluid" ng-controller="FormCtrl">
         <div class="span6">
 
-          <div ng-controller="FormCtrl">
+          <div>
 
             <form class="form-transaction" ng-submit="processForm()">
               <h3 class="form-transaction-heading">Transaction information</h3>
@@ -55,7 +54,6 @@
               <button class="btn" ng-click="clearAll()">Clear all</button>
               <div>{{furtherinstructions}}</div>
             </form>
-            <!-- <p ng-init="loadUrl()">{{result}}</p> -->
 
           </div><!-- /formCtrl -->
 
@@ -64,13 +62,14 @@
 
             <div id="raw-transaction">
 
-              <h3>Raw Transaction Data</h3>
+                <h3>Raw Transaction Data</h3>
 
-              <textarea readonly>{{rawtx}}</textarea>
+                <textarea readonly>{{rawtx}}</textarea>
+
+                <div id="qr-code"></div>
 
             </div>
 
-            <div id="qr-code"></div>
 
         </div>
 

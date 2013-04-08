@@ -19,24 +19,62 @@
 
 <body>
 
-  <div ng-controller="FormCtrl">
+  <div class="container">
 
-    <form class="form-transaction" ng-submit="processForm()">
-      <h3 class="form-transaction-heading">Transaction information</h3>
-      <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
-      <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
-      <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
-      <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
-      <button class="btn btn-primary" type="submit">Create transaction!</button>
-    </form>
-
-    <!-- <p ng-init="loadUrl()">{{result}}</p> -->
-
-    <div id="raw-transaction">
-      <textarea readonly>{{rawtx}}</textarea>
+    <div class="masthead">
+      <h3>Bitcoin Secured: Online Page</h3>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav">
+              <li class="active"><a href="#"><i class="icon-home"></i> Home</a></li>
+              <li><a href="#"><i class="icon-wrench"></i> Instructions</a></li>
+              <li><a href="#"><i class="icon-hdd"></i> Downloads</a></li>
+              <li><a href="#"><i class="icon-eye-open"></i> About</a></li>
+              <li><a href="#"><i class="icon-pencil"></i> Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /.navbar -->
     </div>
 
-  </div><!-- /formCtrl -->
+      <div class="row-fluid" ng-controller="FormCtrl">
+        <div class="span6">
+
+          <div>
+
+            <form class="form-transaction" ng-submit="processForm()">
+              <h3 class="form-transaction-heading">Transaction information</h3>
+              <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
+              <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
+              <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
+              <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
+              <button class="btn btn-primary" type="submit">Create transaction!</button>
+            </form>
+
+          </div>
+
+        </div><!-- /span6 -->
+
+        <div class="span6">
+
+          <div id="raw-transaction">
+
+            <h3>Text to Paste</h3>
+
+            <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
+
+            <textarea readonly>{{rawtx}}</textarea>
+
+            <div id="qr-code"></div>
+
+          </div>
+
+        </div><!-- /span6 -->
+
+    </div><!-- /formCtrl -->
+
+  </div><!-- /container -->
 
 </body>
 </html>

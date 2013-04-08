@@ -31,7 +31,10 @@
     '$window', function($window) {
       return {
         renderQR: function(msg) {
-          return new $window.QRCode($("#qr-code").get(0), msg);
+          return $window.qr = new $window.QRCode($("#qr-code").get(0), msg);
+        },
+        hideQR: function() {
+          return $window.qr.clear();
         }
       };
     }

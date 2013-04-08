@@ -57,8 +57,6 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
     $scope.loadUrl()
 
 
-  $scope.doTransaction()
-
 )
 
 

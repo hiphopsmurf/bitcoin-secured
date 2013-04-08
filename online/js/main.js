@@ -45,11 +45,10 @@
       });
       return true;
     };
-    $scope.processForm = function() {
+    return $scope.processForm = function() {
       console.log("processing form");
       return $scope.loadUrl();
     };
-    return $scope.doTransaction();
   });
 
 }).call(this);

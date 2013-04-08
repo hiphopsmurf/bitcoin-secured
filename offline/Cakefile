@@ -9,8 +9,8 @@ config =
 
 # order of files in `inFiles` is important
 inFiles = [
-  config.srcDir + 'js/angular.js',
   config.srcDir + 'js/zepto.js',
+  config.srcDir + 'js/angular.js',
   config.srcDir + 'js/bitcoinjs-min.js',
   config.srcDir + 'js/tx.js',
   config.srcDir + 'js/main.js'
