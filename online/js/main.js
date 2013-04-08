@@ -24,6 +24,19 @@
     }
   ]);
 
+  app.factory("qrcode", [
+    '$window', function($window) {
+      return {
+        renderQR: function(msg) {
+          return $window.qr = new $window.QRCode($("#qr-code").get(0), msg);
+        },
+        hideQR: function() {
+          return $window.qr.clear();
+        }
+      };
+    }
+  ]);
+
   app.controller("FormCtrl", PageCtrl = function($scope, $http, txevent) {
     $scope.rawtx = "";
     $scope.transaction = {};
@@ -41,7 +54,8 @@
       $http.jsonp(target).success(function(data, status) {
         console.log(data);
         tx.unspent = JSON.parse(data.query.results.body.p);
-        return $scope.rawtx = JSON.stringify(tx);
+        $scope.rawtx = JSON.stringify(tx);
+        return qrcode.renderQR(tx);
       });
       return true;
     };

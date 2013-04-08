@@ -17,6 +17,15 @@ app.factory("txevent",['$window', ($window)->
 
   ])
 
+app.factory("qrcode", ['$window', ($window)->
+
+  renderQR: (msg)->
+    $window.qr = new $window.QRCode($("#qr-code").get(0), msg)
+
+  hideQR: ->
+    $window.qr.clear()
+
+])
 
 
 app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
@@ -47,6 +56,8 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
         console.log data
         tx.unspent = JSON.parse(data.query.results.body.p)
         $scope.rawtx = JSON.stringify(tx)
+        qrcode.renderQR(tx)
+
       )
 
     return true

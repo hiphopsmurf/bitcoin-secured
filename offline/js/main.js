@@ -31,19 +31,22 @@
     '$window', function($window) {
       return {
         renderQR: function(msg) {
-          return $window.qr = new $window.QRCode($("#qr-code").get(0), msg);
+          return new $window.QRCode($("#qr-code").get(0), msg);
         },
         hideQR: function() {
-          return $window.qr.clear();
+          return $("#qr-code").empty();
         }
       };
     }
   ]);
 
   app.controller("FormCtrl", FormCtrl = function($scope, $http, $dialog, txevent, qrcode) {
-    $scope.clearAll = function() {
+    $scope.clearAll = function(e) {
+      e.preventDefault();
       $scope.transaction_data = "";
-      return $scope.rawtx = "";
+      $scope.rawtx = "";
+      $scope.secret = "";
+      return qrcode.hideQR();
     };
     $scope.openDialog = function(msg) {
       var d, opts, t, tx_data;

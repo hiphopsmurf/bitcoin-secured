@@ -22,19 +22,22 @@ app.factory("txevent",['$window', ($window)->
 app.factory("qrcode", ['$window', ($window)->
 
   renderQR: (msg)->
-    $window.qr = new $window.QRCode($("#qr-code").get(0), msg)
+    new $window.QRCode($("#qr-code").get(0), msg)
 
   hideQR: ->
-    $window.qr.clear()
+    $("#qr-code").empty()
 
 ])
 
 
 app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog, txevent, qrcode) ->
 
-  $scope.clearAll = ()->
+  $scope.clearAll = (e)->
+    e.preventDefault()
     $scope.transaction_data = ""
     $scope.rawtx = ""
+    $scope.secret = ""
+    qrcode.hideQR()
 
   $scope.openDialog = (msg)->
     tx_data = msg.tx_data
