@@ -1,0 +1,16 @@
+LICENSE
+MANIFEST.in
+README.rst
+setup.cfg
+livereload/__init__.py
+livereload/cli.py
+livereload/compiler.py
+livereload/livereload.js
+livereload/server.py
+livereload/task.py
+pip-egg-info/livereload.egg-info/PKG-INFO
+pip-egg-info/livereload.egg-info/SOURCES.txt
+pip-egg-info/livereload.egg-info/dependency_links.txt
+pip-egg-info/livereload.egg-info/entry_points.txt
+pip-egg-info/livereload.egg-info/requires.txt
+pip-egg-info/livereload.egg-info/top_level.txt

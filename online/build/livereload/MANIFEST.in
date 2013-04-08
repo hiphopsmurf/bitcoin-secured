@@ -1,0 +1,3 @@
+include livereload/livereload.js
+include LICENSE
+include README.rst

@@ -1,0 +1,72 @@
+{spawn, exec} = require 'child_process'
+
+Buildify = require 'buildify'
+
+config =
+  srcDir:  './'
+  outDir:  'build'
+  outFile: 'bitcoinsecured'
+
+# order of files in `inFiles` is important
+inFiles = [
+  config.srcDir + 'js/angular.js',
+  config.srcDir + 'js/zepto.js',
+  config.srcDir + 'js/bitcoinjs-min.js',
+  config.srcDir + 'js/tx.js',
+  config.srcDir + 'js/main.js'
+]
+
+# deal with errors from child processes
+exerr  = (err, sout,  serr)->
+  process.stdout.write err  if err
+  process.stdout.write sout if sout
+  process.stdout.write serr if serr
+ 
+## jslivereload not used due to 1-2 sec delay, python livereload used instead
+# task 'jslivereload', "Start a livereload server", ->
+#   # config = {'port': 9000}
+#   connect = require 'connect'
+#   connect.createServer().use(connect.static(__dirname + '/app')).use(connect.static(__dirname + '/.tmp/scripts')).listen(9000)
+#   livereload = require('livereload')
+#   server = livereload.createServer({debug: true, applyJSLive: true})
+#   server.watch(__dirname + "/app")
+
+task 'livereload', "Start a livereload server", ->
+  xc = exec 'livereload -p 8000 ./'
+  xc.stdout.on 'data', (data)->
+    process.stdout.write data
+
+task 'watch', 'continually build with --watch', ->
+  src = exec('coffee -cw -o js coffeescript')
+  src.stdout.on 'data', (data) ->
+    console.log data.toString().trim()
+  src.stderr.on 'data', (data)->
+    console.log data.toString().trim()
+  # spec.stdout.on 'data', (data) ->
+  #   console.log data.toString().trim()
+  #   invoke 'test'
+
+task 'concat', 'Concat compiled *.js file', ->
+  Buildify().concat(inFiles).save("build/#{config.outFile}.js")
+
+task 'build', 'Concat and minify compiled coffee and js files', ->
+  Buildify().concat(inFiles).uglify().save("build/#{config.outFile}.min.js")
+
+task 'server', 'Continuously compiles files and reloads browser', ->
+  invoke 'livereload'
+  invoke 'watch'
+  # invoke 'concat'
+
+task 'clean', 'Cleans compiled js files', ->
+  exec "rm app/scripts/*.js app/test/spec/*.js"
+
+task 'compile', 'Compile coffeescript files', ->
+  exec "coffee -c -o js coffeescript", (err,stdout, stderr) ->
+    console.log stdout
+  # exec "coffee -c test/spec", (err,stdout, stderr) ->
+  #   console.log stdout
+    
+task 'test', 'Run the tests', ->
+  console.log "running tests"
+  exec "jasmine-node test/spec --coffee", (err,stdout, stderr) ->
+      console.log  stdout

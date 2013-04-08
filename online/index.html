@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="bitcoinSecured">
+	<head>
+	<title>Hello World!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
+	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
+</head>
+
+<body>
+
+  <div ng-controller="FormCtrl">
+
+    <form class="form-transaction" ng-submit="processForm()">
+      <h3 class="form-transaction-heading">Transaction information</h3>
+      <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
+      <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
+      <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
+      <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
+      <button class="btn btn-primary" type="submit">Create transaction!</button>
+    </form>
+
+    <!-- <p ng-init="loadUrl()">{{result}}</p> -->
+
+    <div id="raw-transaction">
+      <textarea readonly>{{rawtx}}</textarea>
+    </div>
+
+  </div><!-- /formCtrl -->
+
+</body>
+</html>
