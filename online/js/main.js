@@ -49,14 +49,6 @@
       console.log("processing form");
       return $scope.loadUrl();
     };
-    $scope.doTransaction = function() {
-      var tx_addr, tx_dest, tx_sec, tx_unspent;
-      tx_dest = "17Ww5bR6NGAk4AfhsDWAwHgjHRacemLcwV";
-      tx_sec = "5HvkAaBtux2M2uuxUYMFeo9RSD4N9eW5DHqAHN2Z71qU7x9KPd7";
-      tx_addr = "16FPmNu2tFfpN4yXKScGEA7FVpm4grkxd7";
-      tx_unspent = "{\n   \n  \"unspent_outputs\":[\n  \n    {\n      \"tx_hash\":\"dc1bd19bad9da9e14cc2f685fea52a9a10fba4712f057dcc6c1d512e9658ed9a\",\n      \"tx_index\":64224712,\n      \"tx_output_n\": 1,\n      \"script\": \"76a914399174ac8475f1e6e65c452fa85ce13755b2a1aa88ac\",\n      \"value\": 4000000,\n      \"value_hex\": \"3d0900\",\n      \"confirmations\": 611\n    },\n    \n    {\n      \"tx_hash\":\"16407c175b2e5bd0090eef4d542aba15def27c13f16e819a594df4f6123e88d1\",\n      \"tx_index\":65018229,\n      \"tx_output_n\": 1, \n      \"script\":\"76a914399174ac8475f1e6e65c452fa85ce13755b2a1aa88ac\",\n      \"value\": 6680000,\n      \"value_hex\": \"65edc0\",\n      \"confirmations\":0\n    }\n    \n  ]\n}";
-      return txevent.doTrans(tx_dest, tx_sec, tx_addr, tx_unspent);
-    };
     return $scope.doTransaction();
   });
 

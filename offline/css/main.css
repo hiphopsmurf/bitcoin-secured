@@ -7,7 +7,7 @@ body {
 
 .form-transaction {
   max-width: 300px;
-  padding: 19px 29px 29px;
+  padding: 5px 29px 29px;
   margin: 0 auto 20px;
   background-color: #fff;
   border: 1px solid #e5e5e5;
@@ -32,19 +32,28 @@ body {
 
 #raw-transaction {
   max-width: 300px;
-  padding: 20px;
-  margin: 0 auto 20px;
+  padding: 5px 15px 45px;
+  margin: 0 auto;
   /* border: 1px solid #000; */
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
 #qr-code {
   max-width: 300px;
-  padding-left: 50px;
+  /* padding-left: 50px; */
   margin: 0 auto;
   
 }
 
 #raw-transaction textarea {
+  padding: 0px !important;
   width: 300px;
   height: 200px;
 }

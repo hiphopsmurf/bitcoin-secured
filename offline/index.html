@@ -21,27 +21,69 @@
 </head>
 
 <body>
+<div class="container">
 
-  <div ng-controller="FormCtrl">
+      <div class="masthead">
+        <h3>Bitcoin Secured: Offline Page</h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="#"><i class="icon-home"></i> Home</a></li>
+                <li><a href="#"><i class="icon-wrench"></i> Instructions</a></li>
+                <li><a href="#"><i class="icon-hdd"></i> Downloads</a></li>
+                <li><a href="#"><i class="icon-eye-open"></i> About</a></li>
+                <li><a href="#"><i class="icon-pencil"></i> Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
 
-    <form class="form-transaction" ng-submit="processForm()">
-      <h3 class="form-transaction-heading">Transaction information</h3>
-      <p>Please paste the text from Bitcoin Secured online here.  You will be asked to confirm the transaction amount and recipient before your paste is processed.</p>
-      <textarea ng-model="transaction_data" class="input-block-level" placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
-      <input ng-model="secret" type="text" class="input-block-level" placeholder="Paste Private Key Here">
-      <button class="btn btn-primary" type="submit">Create raw transaction!</button>
-      <button class="btn" ng-click="clearAll()">Clear all</button>
-      <div>{{furtherinstructions}}</div>
-    </form>
-    <!-- <p ng-init="loadUrl()">{{result}}</p> -->
+      <!-- Example row of columns -->
+      <div class="row-fluid">
+        <div class="span6">
 
-    <div id="raw-transaction">
-      <textarea readonly>{{rawtx}}</textarea>
+          <div ng-controller="FormCtrl">
+
+            <form class="form-transaction" ng-submit="processForm()">
+              <h3 class="form-transaction-heading">Transaction information</h3>
+              <p>Please paste the text from Bitcoin Secured online here.  You will be asked to confirm the transaction amount and recipient before your paste is processed.</p>
+              <textarea ng-model="transaction_data" class="input-block-level" placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
+              <input ng-model="secret" type="text" class="input-block-level" placeholder="Paste Private Key Here">
+              <button class="btn btn-primary" type="submit">Create raw transaction!</button>
+              <button class="btn" ng-click="clearAll()">Clear all</button>
+              <div>{{furtherinstructions}}</div>
+            </form>
+            <!-- <p ng-init="loadUrl()">{{result}}</p> -->
+
+          </div><!-- /formCtrl -->
+
+        </div>
+        <div class="span6">
+
+            <div id="raw-transaction">
+
+              <h3>Raw Transaction Data</h3>
+
+              <textarea readonly>{{rawtx}}</textarea>
+
+            </div>
+
+            <div id="qr-code"></div>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>Copyright Eric S. Bullington 2013</p>
+      </div>
+
     </div>
 
-    <div id="qr-code"></div>
-
-  </div><!-- /formCtrl -->
 
 </body>
 </html>
