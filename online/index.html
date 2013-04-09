@@ -62,24 +62,14 @@
               </form>
             </div><!-- /span -->
             <div class="span6">
-              Other side of span
+              <div id="raw-transaction" ng-init="renderTx">
+                <h3>Text to Paste</h3>
+                <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
+                <textarea readonly>{{rawtx}}</textarea>
+                <div id="qr-code"></div>
+              </div>
             </div>
         </div><!-- /formCtrl -->
-      </div>
-
-      <div ng-switch-when="Copy Paste">
-        <div class="row-fluid" ng-controller="TextCtrl">
-          <div class="span6">
-            <div id="raw-transaction" ng-init="renderTx">
-              <h3>Text to Paste</h3>
-              <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
-              <textarea readonly>{{rawtx}}</textarea>
-            </div>
-          </div><!-- /span6 -->
-          <div class="span6">
-            <div id="qr-code"></div>
-          </div><!-- /span6 -->
-        </div><!-- /TextCtrl -->
       </div>
 
       <div ng-switch-when="Enter Paste">
@@ -98,7 +88,6 @@
 
     </div><!-- /switch -->
 
-    <div class="clearfix"></div>
     <ul class="pager pull-left">
       <li class="" ng-class="{disabled: !hasPreviousStep()}">
         <a href="javascript:void(0);" ng-click="decrementStep()">&larr; Previous Step</a>

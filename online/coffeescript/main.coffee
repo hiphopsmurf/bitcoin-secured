@@ -32,7 +32,7 @@ app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location) ->
 
   $scope.appdata = {}
 
-  $scope.steps = ["Enter Data", "Copy Paste", "Enter Paste"]
+  $scope.steps = ["Enter Data", "Enter Paste"]
   $scope.selection = $scope.steps[0]
   $scope.getCurrentStepIndex = ->
     
@@ -72,7 +72,7 @@ app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location) ->
 
 )
 
-app.controller("FormCtrl", FormCtrl = ($scope, $http) ->
+app.controller("FormCtrl", FormCtrl = ($scope, $http, qrcode) ->
 
   $scope.rawtx = ""
 
@@ -92,9 +92,10 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http) ->
     $http.get(q)
       .success( (data, status)->
         console.log data
-        tx.unspent = JSON.parse(data)
-        $scope.data.tx = tx
-
+        console.log status
+        tx.unspent = data
+        $scope.rawtx = JSON.stringify(tx)
+        qrcode.renderQR(tx)
       )
 
     return true

@@ -39,7 +39,7 @@
 
   app.controller("RegisterCtrl", RegisterCtrl = function($scope, $location) {
     $scope.appdata = {};
-    $scope.steps = ["Enter Data", "Copy Paste", "Enter Paste"];
+    $scope.steps = ["Enter Data", "Enter Paste"];
     $scope.selection = $scope.steps[0];
     $scope.getCurrentStepIndex = function() {
       return _.indexOf($scope.steps, $scope.selection);
@@ -79,7 +79,7 @@
     };
   });
 
-  app.controller("FormCtrl", FormCtrl = function($scope, $http) {
+  app.controller("FormCtrl", FormCtrl = function($scope, $http, qrcode) {
     $scope.rawtx = "";
     $scope.transaction = {};
     $scope.loadUrl = function() {
@@ -92,8 +92,10 @@
       tx.fee = $scope.transaction.fee;
       $http.get(q).success(function(data, status) {
         console.log(data);
-        tx.unspent = JSON.parse(data);
-        return $scope.data.tx = tx;
+        console.log(status);
+        tx.unspent = data;
+        $scope.rawtx = JSON.stringify(tx);
+        return qrcode.renderQR(tx);
       });
       return true;
     };
