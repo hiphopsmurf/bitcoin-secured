@@ -105,9 +105,29 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, qrcode) ->
     console.log "processing form"
     $scope.loadUrl()
 
+  $scope.clearAll = (e)->
+    e.preventDefault()
+    $scope.transaction = {}
+    $scope.paste = ""
+    qrcode.hideQR()
+
 )
 
 
-app.controller("SubmitCtrl", SubmitCtrl = ($scope, txevent) ->
+app.controller("SubmitCtrl", SubmitCtrl = ($scope) ->
+
+  $scope.submitTx = ()->
+
+    config = {}
+
+    config.url = "/blockchain/pushtx"
+    config.data = JSON.stringify($scope.rawpaste)
+    config.method = 'POST'
+
+    $http(config)
+      .success( (data, status)->
+        console.log data
+        console.log status
+      )
 
 )

@@ -99,12 +99,30 @@
       });
       return true;
     };
-    return $scope.processForm = function() {
+    $scope.processForm = function() {
       console.log("processing form");
       return $scope.loadUrl();
     };
+    return $scope.clearAll = function(e) {
+      e.preventDefault();
+      $scope.transaction = {};
+      $scope.paste = "";
+      return qrcode.hideQR();
+    };
   });
 
-  app.controller("SubmitCtrl", SubmitCtrl = function($scope, txevent) {});
+  app.controller("SubmitCtrl", SubmitCtrl = function($scope) {
+    return $scope.submitTx = function() {
+      var config;
+      config = {};
+      config.url = "/blockchain/pushtx";
+      config.data = JSON.stringify($scope.rawpaste);
+      config.method = 'POST';
+      return $http(config).success(function(data, status) {
+        console.log(data);
+        return console.log(status);
+      });
+    };
+  });
 
 }).call(this);
