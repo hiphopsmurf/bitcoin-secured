@@ -22,6 +22,7 @@ app.factory("txevent",['$window', ($window)->
 app.factory("qrcode", ['$window', ($window)->
 
   renderQR: (msg)->
+    $("#qr-code").empty()
     new $window.QRCode($("#qr-code").get(0), msg)
 
   hideQR: ->

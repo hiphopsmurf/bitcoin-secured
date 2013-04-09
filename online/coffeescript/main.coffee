@@ -93,7 +93,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, qrcode) ->
       .success( (data, status)->
         console.log data
         console.log status
-        tx.unspent = data
+        tx.unspent = JSON.parse(data)
         $scope.rawtx = JSON.stringify(tx)
         qrcode.renderQR(tx)
       )
@@ -107,17 +107,6 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, qrcode) ->
 
 )
 
-
-app.controller("TextCtrl", TextCtrl = ($scope, qrcode) ->
-
-
-  $scope.renderTx = ()->
-
-    tx = $scope.data.tx
-    $scope.rawtx = JSON.stringify(tx)
-    qrcode.renderQR(tx)
-
-)
 
 app.controller("SubmitCtrl", SubmitCtrl = ($scope, txevent) ->
 

@@ -31,6 +31,7 @@
     '$window', function($window) {
       return {
         renderQR: function(msg) {
+          $("#qr-code").empty();
           return new $window.QRCode($("#qr-code").get(0), msg);
         },
         hideQR: function() {
