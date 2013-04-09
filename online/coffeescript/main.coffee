@@ -80,13 +80,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http) ->
 
   $scope.loadUrl = ()->
 
-    q = "select * from html where url='http://http://23.21.122.172/blockchain/unspent?address=#{$scope.transaction.address}'"
-
-    url = "http://query.yahooapis.com/v1/public/yql?q="
-
-    terminal = "&format=json"
-
-    target = url + encodeURIComponent(q) + terminal
+    q = "http://http://23.21.122.172/blockchain/unspent?address=#{$scope.transaction.address}"
 
     tx = {}
 
@@ -95,10 +89,10 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http) ->
     tx.amount = $scope.transaction.amount
     tx.fee = $scope.transaction.fee
 
-    $http.get(target)
+    $http.get(q)
       .success( (data, status)->
         console.log data
-        tx.unspent = JSON.parse(data.query.results.body.p)
+        tx.unspent = JSON.parse(data)
         $scope.data.tx = tx
 
       )

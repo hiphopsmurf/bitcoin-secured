@@ -83,19 +83,16 @@
     $scope.rawtx = "";
     $scope.transaction = {};
     $scope.loadUrl = function() {
-      var q, target, terminal, tx, url;
-      q = "select * from html where url='http://http://23.21.122.172/blockchain/unspent?address=" + $scope.transaction.address + "'";
-      url = "http://query.yahooapis.com/v1/public/yql?q=";
-      terminal = "&format=json";
-      target = url + encodeURIComponent(q) + terminal;
+      var q, tx;
+      q = "http://http://23.21.122.172/blockchain/unspent?address=" + $scope.transaction.address;
       tx = {};
       tx.dest = $scope.transaction.recipient;
       tx.addr = $scope.transaction.address;
       tx.amount = $scope.transaction.amount;
       tx.fee = $scope.transaction.fee;
-      $http.get(target).success(function(data, status) {
+      $http.get(q).success(function(data, status) {
         console.log(data);
-        tx.unspent = JSON.parse(data.query.results.body.p);
+        tx.unspent = JSON.parse(data);
         return $scope.data.tx = tx;
       });
       return true;
