@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
 	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/main.js"></script>
@@ -39,13 +40,21 @@
       </div><!-- /.navbar -->
     </div>
 
+
     <div ng-controller="RegisterCtrl">
 
-      <ul class="nav nav-tabs">
-        <li ng-repeat="step in steps" ng-class="{active: $index==getCurrentStepIndex()}">
-          <a href="javascript:void(0)" ng-click="goToStep($index)">{{step}}</a>
+    <div id="step-nav">
+      <ul class="pager">
+        <li class="" ng-class="{disabled: !hasPreviousStep()}">
+          <a href="javascript:void(0);" ng-click="decrementStep()">&larr; Previous Step</a>
+        </li>
+        <li class="" ng-class="{disabled: !hasNextStep()}">
+          <a href="javascript:void(0);" ng-click="incrementStep()">Next Step &rarr;</a>
         </li>
       </ul>
+    </div>
+
+    <div class="clearfix"></div>
 
       <div ng-switch on="selection">
 
@@ -64,7 +73,7 @@
             <div class="span6">
               <div id="raw-transaction" ng-init="renderTx">
                 <h3>Text to Paste</h3>
-                <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
+                <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html). When you're done, click "next step" (above).</p>
                 <textarea readonly>{{rawtx}}</textarea>
                 <div id="qr-code"></div>
               </div>
@@ -88,14 +97,6 @@
 
     </div><!-- /switch -->
 
-    <ul class="pager pull-left">
-      <li class="" ng-class="{disabled: !hasPreviousStep()}">
-        <a href="javascript:void(0);" ng-click="decrementStep()">&larr; Previous Step</a>
-      </li>
-      <li class="" ng-class="{disabled: !hasNextStep()}">
-        <a href="javascript:void(0);" ng-click="incrementStep()">Next Step &rarr;</a>
-      </li>
-    </ul>
 
   </div><!--/RegisterCtrl -->
 

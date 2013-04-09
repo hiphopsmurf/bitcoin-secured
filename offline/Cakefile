@@ -11,7 +11,9 @@ config =
 inFiles = [
   config.srcDir + 'js/zepto.js',
   config.srcDir + 'js/angular.js',
+  config.srcDir + 'js/ui-bootstrap-0.2.0.js',
   config.srcDir + 'js/bitcoinjs-min.js',
+  config.srcDir + 'js/qrcode.js',
   config.srcDir + 'js/tx.js',
   config.srcDir + 'js/main.js'
 ]

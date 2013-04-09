@@ -30,6 +30,10 @@ body {
   padding: 7px 9px;
 }
 
+#step-nav {
+  margin-bottom: 25px;
+}
+
 #raw-transaction {
   max-width: 300px;
   padding: 5px 15px 45px;

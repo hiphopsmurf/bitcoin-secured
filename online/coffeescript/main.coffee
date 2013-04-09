@@ -93,7 +93,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, qrcode) ->
       .success( (data, status)->
         console.log data
         console.log status
-        tx.unspent = JSON.parse(data)
+        tx.unspent = data
         $scope.rawtx = JSON.stringify(tx)
         qrcode.renderQR(tx)
       )
