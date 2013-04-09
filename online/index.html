@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/zepto.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
@@ -38,41 +39,76 @@
       </div><!-- /.navbar -->
     </div>
 
-      <div class="row-fluid" ng-controller="FormCtrl">
-        <div class="span6">
+    <div ng-controller="RegisterCtrl">
 
-          <div>
+      <ul class="nav nav-tabs">
+        <li ng-repeat="step in steps" ng-class="{active: $index==getCurrentStepIndex()}">
+          <a href="javascript:void(0)" ng-click="goToStep($index)">{{step}}</a>
+        </li>
+      </ul>
 
-            <form class="form-transaction" ng-submit="processForm()">
-              <h3 class="form-transaction-heading">Transaction information</h3>
-              <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
-              <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
-              <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
-              <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
-              <button class="btn btn-primary" type="submit">Create transaction!</button>
-            </form>
+      <div ng-switch on="selection">
 
-          </div>
+        <div ng-switch-when="Enter Data">
+          <div class="row-fluid" ng-controller="FormCtrl">
+            <div class="span6">
+              <form class="form-transaction" ng-submit="processForm()">
+                <h3 class="form-transaction-heading">Transaction information</h3>
+                <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
+                <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
+                <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
+                <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
+                <button class="btn btn-primary" type="submit">Create transaction!</button>
+              </form>
+            </div><!-- /span -->
+            <div class="span6">
+              Other side of span
+            </div>
+        </div><!-- /formCtrl -->
+      </div>
 
-        </div><!-- /span6 -->
-
-        <div class="span6">
-
-          <div id="raw-transaction">
-
-            <h3>Text to Paste</h3>
-
-            <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
-
-            <textarea readonly>{{rawtx}}</textarea>
-
+      <div ng-switch-when="Copy Paste">
+        <div class="row-fluid" ng-controller="TextCtrl">
+          <div class="span6">
+            <div id="raw-transaction" ng-init="renderTx">
+              <h3>Text to Paste</h3>
+              <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html)</p>
+              <textarea readonly>{{rawtx}}</textarea>
+            </div>
+          </div><!-- /span6 -->
+          <div class="span6">
             <div id="qr-code"></div>
+          </div><!-- /span6 -->
+        </div><!-- /TextCtrl -->
+      </div>
 
+      <div ng-switch-when="Enter Paste">
+        <div class="row-fluid" ng-controller="SubmitCtrl">
+          <div class="span6">
+            <form class="form-transaction" ng-submit="submitTx()">
+              <h3 class="form-transaction-heading">Submit Transaction</h3>
+              <textarea readonly>{{rawtx}}</textarea>
+            </form>
           </div>
+          <div class="span6">
+            Other side of span
+          </div>
+        </div>
+      </div>
 
-        </div><!-- /span6 -->
+    </div><!-- /switch -->
 
-    </div><!-- /formCtrl -->
+    <div class="clearfix"></div>
+    <ul class="pager pull-left">
+      <li class="" ng-class="{disabled: !hasPreviousStep()}">
+        <a href="javascript:void(0);" ng-click="decrementStep()">&larr; Previous Step</a>
+      </li>
+      <li class="" ng-class="{disabled: !hasNextStep()}">
+        <a href="javascript:void(0);" ng-click="incrementStep()">Next Step &rarr;</a>
+      </li>
+    </ul>
+
+  </div><!--/RegisterCtrl -->
 
   </div><!-- /container -->
 

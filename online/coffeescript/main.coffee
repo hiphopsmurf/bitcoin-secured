@@ -28,7 +28,51 @@ app.factory("qrcode", ['$window', ($window)->
 ])
 
 
-app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
+app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location) ->
+
+  $scope.appdata = {}
+
+  $scope.steps = ["Enter Data", "Copy Paste", "Enter Paste"]
+  $scope.selection = $scope.steps[0]
+  $scope.getCurrentStepIndex = ->
+    
+    # Get the index of the current step given selection
+    _.indexOf $scope.steps, $scope.selection
+
+  
+  # Go to a defined step index
+  $scope.goToStep = (index) ->
+    $scope.selection = $scope.steps[index]  unless _.isUndefined($scope.steps[index])
+
+  $scope.hasNextStep = ->
+    stepIndex = $scope.getCurrentStepIndex()
+    nextStep = stepIndex + 1
+    
+    # Return true if there is a next step, false if not
+    not _.isUndefined($scope.steps[nextStep])
+
+  $scope.hasPreviousStep = ->
+    stepIndex = $scope.getCurrentStepIndex()
+    previousStep = stepIndex - 1
+    
+    # Return true if there is a next step, false if not
+    not _.isUndefined($scope.steps[previousStep])
+
+  $scope.incrementStep = ->
+    if $scope.hasNextStep()
+      stepIndex = $scope.getCurrentStepIndex()
+      nextStep = stepIndex + 1
+      $scope.selection = $scope.steps[nextStep]
+
+  $scope.decrementStep = ->
+    if $scope.hasPreviousStep()
+      stepIndex = $scope.getCurrentStepIndex()
+      previousStep = stepIndex - 1
+      $scope.selection = $scope.steps[previousStep]
+
+)
+
+app.controller("FormCtrl", FormCtrl = ($scope, $http) ->
 
   $scope.rawtx = ""
 
@@ -36,11 +80,11 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
 
   $scope.loadUrl = ()->
 
-    q = "select * from html where url='http://blockchain.info/unspent?address=#{$scope.transaction.address}'"
+    q = "select * from html where url='http://http://23.21.122.172/blockchain/unspent?address=#{$scope.transaction.address}'"
 
     url = "http://query.yahooapis.com/v1/public/yql?q="
 
-    terminal = "&format=json&callback=JSON_CALLBACK"
+    terminal = "&format=json"
 
     target = url + encodeURIComponent(q) + terminal
 
@@ -51,12 +95,11 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
     tx.amount = $scope.transaction.amount
     tx.fee = $scope.transaction.fee
 
-    $http.jsonp(target)
+    $http.get(target)
       .success( (data, status)->
         console.log data
         tx.unspent = JSON.parse(data.query.results.body.p)
-        $scope.rawtx = JSON.stringify(tx)
-        qrcode.renderQR(tx)
+        $scope.data.tx = tx
 
       )
 
@@ -67,7 +110,20 @@ app.controller("FormCtrl", PageCtrl = ($scope, $http, txevent) ->
     console.log "processing form"
     $scope.loadUrl()
 
-
 )
 
 
+app.controller("TextCtrl", TextCtrl = ($scope, qrcode) ->
+
+
+  $scope.renderTx = ()->
+
+    tx = $scope.data.tx
+    $scope.rawtx = JSON.stringify(tx)
+    qrcode.renderQR(tx)
+
+)
+
+app.controller("SubmitCtrl", SubmitCtrl = ($scope, txevent) ->
+
+)
