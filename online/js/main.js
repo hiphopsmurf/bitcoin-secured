@@ -84,7 +84,7 @@
     $scope.transaction = {};
     $scope.loadUrl = function() {
       var q, tx;
-      q = "http://http://23.21.122.172/blockchain/unspent?address=" + $scope.transaction.address;
+      q = "/blockchain/unspent?address=" + $scope.transaction.address;
       tx = {};
       tx.dest = $scope.transaction.recipient;
       tx.addr = $scope.transaction.address;
