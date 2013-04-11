@@ -64,13 +64,13 @@
         <div ng-switch-when="Enter Data">
           <div class="row-fluid" ng-controller="FormCtrl">
             <div class="span6">
-              <form class="form-transaction">
+              <form class="form-transaction" ng-submit="processForm()">
                 <h3 class="form-transaction-heading">Transaction information</h3>
-                <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address">
-                <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address">
-                <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC">
-                <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC">
-                <button class="btn btn-primary" ng-click="processForm()">Create Paste for Offline Signing!</button><br><br>
+                <input ng-model="transaction.address" type="text" class="input-block-level" placeholder="Cold Storage Address" required>
+                <input ng-model="transaction.recipient" type="text" class="input-block-level" placeholder="Recipient Address" required>
+                <input ng-model="transaction.amount" type="text" class="input-block-level" placeholder="Amount in BTC" required>
+                <input ng-model="transaction.fee" type="text" class="input-block-level" placeholder="Transaction Fee in BTC" required>
+                <button class="btn btn-primary">Create Paste for Offline Signing!</button><br><br>
               <button class="btn" ng-click="clearAll($event)">Clear all</button>
 
               </form>

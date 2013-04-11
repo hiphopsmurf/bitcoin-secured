@@ -45,8 +45,8 @@
             <form class="form-transaction">
               <h3 class="form-transaction-heading">Transaction information</h3>
               <p>Please paste the text from Bitcoin Secured online here.  You will be asked to confirm the transaction amount and recipient before your paste is processed.</p>
-              <textarea ng-model="transaction_data" class="input-block-level" placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
-              <input ng-model="secret" type="text" class="input-block-level" placeholder="Paste Private Key Here">
+              <textarea ng-model="transaction_data" required class="input-block-level" placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
+              <input ng-model="secret" required type="password" class="input-block-level" placeholder="Paste Private Key Here">
               <button class="btn btn-primary" ng-click="processForm($event)">Create raw transaction!</button>
               <button class="btn" ng-click="clearAll($event)">Clear all</button>
               <div>{{furtherinstructions}}</div>

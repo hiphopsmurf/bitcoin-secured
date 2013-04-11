@@ -73,3 +73,10 @@ body {
 .notice-modal {
   top: 25% !important;
 }
+
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+  border-color: #006dcc;
+  -webkit-box-shadow: 0 0 6px #0044cc;
+  -moz-box-shadow: 0 0 6px #0044cc;
+  box-shadow: 0 0 6px #0044cc;
+}
