@@ -56,9 +56,20 @@ body {
   margin-bottom: 15px !important;
 }
 
-#qr-code {
-  max-width: 300px;
-  padding-left: 15px;
-  margin: 0 auto;
+/* #qr-code { */
+/*   max-width: 300px; */
+/*   padding-left: 15px; */
+/*   margin: 0 auto; */
+/* } */
+/*  */
+
+.qr-modal {
+  width: 256px !important;
+  top: 25% !important;
+  left: 50% !important;
+  margin-left: -128px !important;
 }
 
+.notice-modal {
+  top: 25% !important;
+}

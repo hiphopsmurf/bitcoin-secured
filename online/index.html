@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html ng-app="bitcoinSecured">
 	<head>
-	<title>Hello World!</title>
+	<title>Bitcoin Secured 0.1: Online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
 	<script type="text/javascript" src="js/underscore-min.js"></script>
-	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/zepto.js"></script>
-	<script type="text/javascript" src="js/qrcode.js"></script>
+	<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/angular-sanitize.js"></script>
+	<script type="text/javascript" src="js/ui-bootstrap-0.2.0.js"></script>
+	<script type="text/javascript" src="js/rfc1751.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
 	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
     <style>
       .hide {
@@ -77,7 +80,7 @@
                 <h3>Text to Paste</h3>
                 <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html). When you're done, click "next step" (above).</p>
                 <textarea ng-model="paste" readonly>{{rawtx}}</textarea>
-                <div id="qr-code"></div>
+                <div id="qr-button"><button type="button" class="btn {{buttonState.qrcodestate}}" ng-click="showQr()">Show QR Code <i class="icon-qrcode"></i></div>
               </div>
             </div>
         </div><!-- /formCtrl -->
@@ -99,7 +102,6 @@
       </div>
 
     </div><!-- /switch -->
-
 
   </div><!--/RegisterCtrl -->
 
