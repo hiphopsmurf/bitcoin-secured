@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="js/zepto.js"></script>
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/ui-bootstrap-0.2.0.js"></script>
-	<!-- <script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script> -->
+	<script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script>
 	<script type="text/javascript" src="js/qrcode.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
 	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
@@ -36,19 +36,24 @@
         </div><!-- /.navbar -->
       </div>
 
+      <div ng-controller="AlertCtrl">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      </div>
+
+
       <!-- Example row of columns -->
       <div class="row-fluid" ng-controller="FormCtrl">
         <div class="span6">
 
           <div>
 
-            <form class="form-transaction">
+            <form name="form" class="form-transaction" ng-submit="processForm()">
               <h3 class="form-transaction-heading">Transaction information</h3>
               <p>Please paste the text from Bitcoin Secured online here.  You will be asked to confirm the transaction amount and recipient before your paste is processed.</p>
-              <textarea ng-model="transaction_data" required class="input-block-level" placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
+              <textarea name="rawtx" ng-model="transaction_data"  class="input-block-level" data-errormessage="Please paste the information you copied from online in this box" required placeholder="Paste text from Bitcoin Secured ONLY here"></textarea>
               <input ng-model="secret" required type="password" class="input-block-level" placeholder="Paste Private Key Here">
-              <button class="btn btn-primary" ng-click="processForm($event)">Create raw transaction!</button>
               <button class="btn" ng-click="clearAll($event)">Clear all</button>
+              <button class="raw btn btn-primary">Create raw transaction!</button>
               <div>{{furtherinstructions}}</div>
             </form>
 
@@ -62,8 +67,7 @@
                 <h3>Raw Transaction Data</h3>
 
                 <textarea readonly>{{rawtx}}</textarea>
-
-                <div id="qr-code"></div>
+                <div id="qr-button"><button type="button" class="btn {{buttonState.qrcodestate}}" ng-click="showQr()">Show QR Code <i class="icon-qrcode"></i></div>
 
             </div>
 

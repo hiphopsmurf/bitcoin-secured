@@ -1,4 +1,4 @@
-app = angular.module("bitcoinSecured", ['ui.bootstrap', 'ngSanitize'])
+app = angular.module("bitcoinSecured", ['ui.bootstrap'])
 
 
 ###
@@ -41,7 +41,6 @@ app.factory("txevent",['$window', ($window)->
   ])
 
 app.directive("qrCode", ['$window', ($window)->
-
 
   template: "<div id='qr-code'></div>"
   restrict: 'E'
@@ -251,3 +250,17 @@ app.controller("DialogCtrl", DialogCtrl = ($scope, msg, dialog) ->
   $scope.msg = msg
 )
 
+app.controller("AlertCtrl", AlertCtrl = ($scope) ->
+
+  $scope.alerts = [
+    type: "error"
+    msg: "Bitcoin Secured 0.1 is beta quality software. As such, there is a small but real chance of software error. Please don't use this system to transfer large amounts of Bitcoins until this beta notice is removed."
+  ]
+
+  $scope.addAlert = (msg)->
+    $scope.alerts.push msg: msg
+
+  $scope.closeAlert = (index) ->
+    $scope.alerts.splice index, 1
+
+)

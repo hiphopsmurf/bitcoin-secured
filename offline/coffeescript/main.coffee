@@ -19,28 +19,35 @@ app.factory("txevent",['$window', ($window)->
 
 ])
 
-app.factory("qrcode", ['$window', ($window)->
+app.directive("qrCode", ['$window', ($window)->
 
-  renderQR: (msg)->
-    $("#qr-code").empty()
-    new $window.QRCode($("#qr-code").get(0), msg)
+  template: "<div id='qr-code'></div>"
+  restrict: 'E'
+  scope:
+    localQrMsg: '=myAttr'
 
-  hideQR: ->
-    $("#qr-code").empty()
+  link: (scope, element, attrs) ->
+
+    el = angular.element(element)
+
+    qr = new $window.QRCode(el[0], scope.localQrMsg)
 
 ])
 
 
-app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog, txevent, qrcode) ->
+app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog, txevent) ->
+
+  $scope.buttonState = {}
+
+  $scope.buttonState.qrcodestate = "disabled"
 
   $scope.clearAll = (e)->
     e.preventDefault()
     $scope.transaction_data = ""
     $scope.rawtx = ""
     $scope.secret = ""
-    qrcode.hideQR()
 
-  $scope.openDialog = (msg)->
+  $scope.openConfirmation = (msg)->
     tx_data = msg.tx_data
     t = """
     <div id="modal">
@@ -65,26 +72,76 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog, txevent, qrcode) 
     opts =
       backdrop: true
       template: t
-      controller: "DialogCtrl"
+      controller: "ConfirmationCtrl"
     d = $dialog.dialog(opts)
     d.open().then (result) ->
       if result is 'ok'
         $scope.rawtx = msg.rawtx
-        qrcode.renderQR(msg.rawtx)
       else
         alert "Your transaction is cancelled"
+
+  $scope.openDialog = (msg)->
+
+    t = """
+      <div id="modal">
+          <qr-code my-attr="msg"></qr-code>
+      </div>
+      """
+
+    opts =
+      # templateUrl: 'dialog.html'
+      template: t
+      dialogClass: "modal qr-modal"
+      controller: "DialogCtrl"
+      backdrop: true
+      resolve: {msg: ()->
+        angular.copy(msg)
+      }
+    d = $dialog.dialog(opts)
+    d.open().then (result) ->
+      if result is 'ok'
+        console.log "Your transaction is ok"
+      else
+        console.log "Your transaction is cancelled"
+
+  $scope.showQr = ()->
+    $scope.openDialog($scope.rawtx)
 
   $scope.processForm = ()->
     console.log "processing form now"
     tx = JSON.parse($scope.transaction_data)
     tx.sec = $scope.secret
     msg = txevent.doTrans(tx)
-    $scope.openDialog(msg)
+    $scope.openConfirmation(msg)
+    $scope.buttonState.qrcodestate = ""
 )
 
-
 # the dialog is injected in the specified controller
-app.controller("DialogCtrl", DialogCtrl = ($scope, dialog) ->
+app.controller("ConfirmationCtrl", ConfirmationCtrl = ($scope, dialog) ->
   $scope.close = (result) ->
     dialog.close result
 )
+
+# the dialog is injected in the specified controller
+app.controller("DialogCtrl", DialogCtrl = ($scope, msg, dialog) ->
+  $scope.close = (result) ->
+    dialog.close result
+
+  $scope.msg = msg
+)
+
+app.controller("AlertCtrl", AlertCtrl = ($scope) ->
+
+  $scope.alerts = [
+    type: "error"
+    msg: "Bitcoin Secured 0.1 is beta quality software. As such, there is a small but real chance of software error. Please don't use this system to transfer large amounts of Bitcoins until this beta notice is removed."
+  ]
+
+  $scope.addAlert = (msg)->
+    $scope.alerts.push msg: msg
+
+  $scope.closeAlert = (index) ->
+    $scope.alerts.splice index, 1
+
+)
+

@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/angular-sanitize.js"></script>
 	<script type="text/javascript" src="js/ui-bootstrap-0.2.0.js"></script>
-	<script type="text/javascript" src="js/rfc1751.js"></script>
+	<script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script>
 	<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
 	<script type="text/javascript" src="js/tx.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/qrcode.js"></script>
@@ -43,6 +43,9 @@
       </div><!-- /.navbar -->
     </div>
 
+    <div ng-controller="AlertCtrl">
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
 
     <div ng-controller="RegisterCtrl">
 

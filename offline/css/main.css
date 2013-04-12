@@ -52,9 +52,25 @@ body {
   margin-bottom: 15px !important;
 }
 
-#qr-code {
-  max-width: 300px;
-  padding-left: 15px;
-  margin: 0 auto;
+.qr-modal {
+  width: 256px !important;
+  top: 25% !important;
+  left: 50% !important;
+  margin-left: -128px !important;
 }
 
+.notice-modal {
+  top: 25% !important;
+}
+
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+  border-color: #006dcc;
+  -webkit-box-shadow: 0 0 6px #0044cc;
+  -moz-box-shadow: 0 0 6px #0044cc;
+  box-shadow: 0 0 6px #0044cc;
+}
+
+
+.raw.btn {
+  margin-left: 10px;
+}
