@@ -161,8 +161,7 @@
     };
     $scope.processForm = function() {
       console.log("Processing form...");
-      $scope.loadUrl();
-      return $scope.openNotice(key_to_english($scope.appdata.dest));
+      return $scope.loadUrl();
     };
     $scope.showQr = function() {
       return $scope.openDialog($scope.appdata.rawtx);

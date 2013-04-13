@@ -113,7 +113,24 @@
 
     <script id="download.html" type="text/ng-template">
       <div>
-        Hi from download page
+        <p>Download link for offline signing app: <a href='https://github.com/esbullington/bitcoin-secured/blob/master/offline/build/bitcoin-secured-offline-0.1.zip'>Bitcoin-Secured Offline v. 0.1</a></p>
+        <p>MD5 Hash of program zip file:</p>
+        <pre>
+7eb7bfd0c1947b0383e2ec6ab28bbe77  bitcoin-secured-offline-0.1.zip
+        </pre>
+        <pre>
+-----BEGIN-SIGNATURE-BLOCK-------------------------------------
+Address:    14LKfACXKfnrQxxxtnRRT5uXMkJeTDQteY
+Message:    "7eb7bfd0c1947b0383e2ec6ab28bbe77  bitcoin-secure"
+            "d-offline-0.1.zip"
+PublicKey:  04f3d30c921cfe725ac949c097c594f0cd26b31c9bb495a6e5
+            5c944ba9b9801791e63b50cef46330afd0617bfe9ea7e6d70b
+            5035acc3402d6d47e653112b0b7921
+Signature:  aefd7a0b02a6c69fb06b7bea23ffa74cae2a5750630d2ddb59
+            541e6a79babf52b12b55d05dcdb4c99ce6aee4dc3718c29b26
+            92a632df645fd14be1c249f7545a
+-----END-SIGNATURE-BLOCK---------------------------------------
+        </pre>
       </div>
     </script>
 

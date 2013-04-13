@@ -190,7 +190,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
   $scope.processForm = ()->
     console.log "Processing form..."
     $scope.loadUrl()
-    $scope.openNotice(key_to_english($scope.appdata.dest))
+    # $scope.openNotice(key_to_english($scope.appdata.dest))
 
   $scope.showQr = ()->
     $scope.openDialog($scope.appdata.rawtx)
