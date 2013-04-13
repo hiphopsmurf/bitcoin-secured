@@ -183,9 +183,10 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
         console.log status
         tx.unspent = data
         $scope.appdata.rawtx = JSON.stringify(tx)
-      )
+      ).error( (data, status)->
+        if data is "No free outputs to spend"
+          txevent.alert "No free outputs to spend at this address"
 
-    return true
 
   $scope.processForm = ()->
     console.log "Processing form..."

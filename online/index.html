@@ -84,7 +84,7 @@
                 <div id="raw-transaction">
                   <h3>Step 2: Text to Paste</h3>
                   <p>Copy this text, transfer it to the offline computer, and paste it in the offline page of Bitcoin Secured (offline.html). When you're done, click "next step" (above).</p>
-                  <textarea ng-model="paste" readonly>{{rawtx}}</textarea>
+                  <textarea ng-model="paste" readonly>{{appdata.rawtx}}</textarea>
                   <div id="qr-button"><button type="button" class="btn {{buttonState.qrcodestate}}" ng-click="showQr()">Show QR Code <i class="icon-qrcode"></i></div>
                 </div>
               </div>
