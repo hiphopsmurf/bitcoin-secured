@@ -2,8 +2,8 @@ app = angular.module("bitcoinSecured", ['ui.bootstrap']).config(['$routeProvider
 
   $routeProvider.when("/",
     action: "home.default"
-    controller: RegisterCtrl
-    templateUrl: "register.html"
+    controller: HomeCtrl
+    templateUrl: "home.html"
   ).when("/download",
     action: "download.default"
     controller: DownloadCtrl
@@ -90,14 +90,16 @@ app.controller("AppController", AppController = ($scope, $route, $routeParams) -
 
 )
 
-
+# Define our route controllers
+app.controller("HomeCtrl", HomeCtrl = ($scope) ->
+  $scope.home = {}
+)
 app.controller("DownloadCtrl", DownloadCtrl = ($scope) ->
   $scope.downloads = {}
 )
 
+# Embedded controllers in home page
 app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location, $dialog) ->
-
-  $scope.appdata = {}
 
   $scope.steps = ["Enter Data", "Enter Paste"]
   $scope.selection = $scope.steps[0]
@@ -170,7 +172,6 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
     tx = {}
 
     tx.dest = $scope.transaction.recipient
-    $scope.appdata.dest = tx.dest
     tx.addr = $scope.transaction.address
     tx.amount = $scope.transaction.amount
     tx.fee = $scope.transaction.fee
@@ -181,7 +182,6 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
         console.log status
         tx.unspent = data
         $scope.rawtx = JSON.stringify(tx)
-        $scope.appdata.rawtx = $scope.rawtx
       ).error( (data, status)->
         if data is "No free outputs to spend"
           txevent.alert "No free outputs to spend at this address"
@@ -191,16 +191,16 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
   $scope.processForm = ()->
     console.log "Processing form..."
     $scope.loadUrl()
-    # $scope.openNotice(key_to_english($scope.appdata.dest))
+    $scope.buttonState.qrcodestate = ""
 
   $scope.showQr = ()->
-    $scope.openDialog($scope.appdata.rawtx)
+    $scope.openDialog($scope.rawtx)
 
 
   $scope.clearAll = (e)->
     e.preventDefault()
     $scope.transaction = {}
-    $scope.paste = ""
+    $scope.rawtx = ""
 
   $scope.openDialog = (msg)->
 
