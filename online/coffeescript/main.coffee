@@ -91,15 +91,7 @@ app.controller("AppController", AppController = ($scope, $route, $routeParams) -
 )
 
 # Define our route controllers
-app.controller("HomeCtrl", HomeCtrl = ($scope) ->
-  $scope.home = {}
-)
-app.controller("DownloadCtrl", DownloadCtrl = ($scope) ->
-  $scope.downloads = {}
-)
-
-# Embedded controllers in home page
-app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location, $dialog) ->
+app.controller("HomeCtrl", HomeCtrl = ($scope, $location, $dialog) ->
 
   $scope.steps = ["Enter Data", "Enter Paste"]
   $scope.selection = $scope.steps[0]
@@ -150,8 +142,12 @@ app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location, $dialog) ->
   $scope.modalOpts =
     backdropFade: true
     dialogFade: true
-
 )
+app.controller("DownloadCtrl", DownloadCtrl = ($scope) ->
+  $scope.downloads = {}
+)
+
+# Embedded controllers in home page
 
 app.controller("ModalCtrl", ModalCtrl = ($scope) ->
 
@@ -178,6 +174,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
 
     $http.get(q)
       .success( (data, status)->
+        $scope.buttonState.qrcodestate = ""
         console.log data
         console.log status
         tx.unspent = data
@@ -191,11 +188,9 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
   $scope.processForm = ()->
     console.log "Processing form..."
     $scope.loadUrl()
-    $scope.buttonState.qrcodestate = ""
 
   $scope.showQr = ()->
     $scope.openDialog($scope.rawtx)
-
 
   $scope.clearAll = (e)->
     e.preventDefault()
