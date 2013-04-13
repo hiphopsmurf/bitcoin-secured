@@ -138,7 +138,6 @@
   app.controller("ModalCtrl", ModalCtrl = function($scope) {});
 
   app.controller("FormCtrl", FormCtrl = function($scope, $http, $dialog) {
-    $scope.rawtx = "";
     $scope.buttonState = {};
     $scope.buttonState.qrcodestate = "disabled";
     $scope.transaction = {};
@@ -151,13 +150,17 @@
       tx.addr = $scope.transaction.address;
       tx.amount = $scope.transaction.amount;
       tx.fee = $scope.transaction.fee;
-      $http.get(q).success(function(data, status) {
+      return $http.get(q).success(function(data, status) {
         console.log(data);
         console.log(status);
         tx.unspent = data;
-        return $scope.appdata.rawtx = JSON.stringify(tx);
+        $scope.rawtx = JSON.stringify(tx);
+        return $scope.appdata.rawtx = $scope.rawtx;
+      }).error(function(data, status) {
+        if (data === "No free outputs to spend") {
+          return txevent.alert("No free outputs to spend at this address");
+        }
       });
-      return true;
     };
     $scope.processForm = function() {
       console.log("Processing form...");

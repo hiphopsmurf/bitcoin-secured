@@ -157,8 +157,6 @@ app.controller("ModalCtrl", ModalCtrl = ($scope) ->
 
 app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
 
-  $scope.rawtx = ""
-
   $scope.buttonState = {}
 
   $scope.buttonState.qrcodestate = "disabled"
@@ -182,10 +180,12 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
         console.log data
         console.log status
         tx.unspent = data
-        $scope.appdata.rawtx = JSON.stringify(tx)
+        $scope.rawtx = JSON.stringify(tx)
+        $scope.appdata.rawtx = $scope.rawtx
       ).error( (data, status)->
         if data is "No free outputs to spend"
           txevent.alert "No free outputs to spend at this address"
+      )
 
 
   $scope.processForm = ()->
