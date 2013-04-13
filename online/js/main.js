@@ -229,7 +229,8 @@
       config.method = 'POST';
       return $http(config).success(function(data, status) {
         console.log(data);
-        return console.log(status);
+        console.log(status);
+        return alert("Transaction was successful");
       });
     };
   });

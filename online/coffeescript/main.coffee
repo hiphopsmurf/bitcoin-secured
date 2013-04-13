@@ -273,6 +273,7 @@ app.controller("SubmitCtrl", SubmitCtrl = ($scope) ->
       .success( (data, status)->
         console.log data
         console.log status
+        alert "Transaction was successful"
       )
 
 )
