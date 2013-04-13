@@ -1,27 +1,17 @@
-app = angular.module("bitcoinSecured", ['ui.bootstrap'])
+app = angular.module("bitcoinSecured", ['ui.bootstrap']).config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider)->
 
+  $routeProvider.when("/",
+    action: "home.default"
+    controller: RegisterCtrl
+    templateUrl: "register.html"
+  ).when("/download",
+    action: "download.default"
+    controller: DownloadCtrl
+    templateUrl: "download.html"
+  )
 
-###
-@ngdoc directive
-@name ngSanitize.directive:ngBindHtml
+])
 
-@description
-Creates a binding that will sanitize the result of evaluating the `expression` with the
-{@link ngSanitize.$sanitize $sanitize} service and innerHTML the result into the current element.
-
-See {@link ngSanitize.$sanitize $sanitize} docs for examples.
-
-@element ANY
-@param {expression} ngBindHtml {@link guide/expression Expression} to evaluate.
-###
-# app.directive "ngBindHtml", ["$sanitize", ($sanitize) ->
-#   (scope, element, attr) ->
-#     element.addClass("ng-binding").data "$binding", attr.ngBindHtml
-#     scope.$watch attr.ngBindHtml, ngBindHtmlWatchAction = (value) ->
-#       value = $sanitize(value)
-#       element.html value or ""
-# 
-# ]
 
 app.factory("txevent",['$window', ($window)->
 
@@ -55,6 +45,55 @@ app.directive("qrCode", ['$window', ($window)->
 
 ])
 
+
+# Define our root-level controller for the application.
+app.controller("AppController", AppController = ($scope, $route, $routeParams) ->
+  
+  # Update the rendering of the page.
+  render = ->
+    
+    # Pull the "action" value out of the
+    # currently selected route.
+    # We have to check if it's defined first since upon initial load of this single page app
+    # there is an async redirect to '#/' which causes this issue
+    if _.isUndefined($route.current.action)
+      renderAction = "home.default"
+    else
+      renderAction = $route.current.action
+    console.log "render action is: " + renderAction
+    
+    # Also, let's update the render path so that
+    # we can start conditionally rendering parts
+    # of the page.
+    renderPath = renderAction.split(".")
+    console.log "render path is: " + renderPath
+    
+    # Reset the booleans used to set the class
+    # for the navigation.
+    isHome = (renderPath[0] is "home")
+    isDownload = (renderPath[0] is "download")
+    
+    # Store the values in the model.
+    $scope.renderAction = renderAction
+    $scope.renderPath = renderPath
+    $scope.isHome = isHome
+    $scope.isDownload = isDownload
+
+  
+  # Listen for changes to the Route. When the route
+  # changes, let's set the renderAction model value so
+  # that it can render in the Strong element.
+  $scope.$on "$routeChangeSuccess", ($currentRoute, $previousRoute) ->
+    
+    # Update the rendering.
+    render()
+
+)
+
+
+app.controller("DownloadCtrl", DownloadCtrl = ($scope) ->
+  $scope.downloads = {}
+)
 
 app.controller("RegisterCtrl", RegisterCtrl = ($scope, $location, $dialog) ->
 
