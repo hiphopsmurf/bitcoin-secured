@@ -251,7 +251,7 @@
     $scope.alerts = [
       {
         type: "error",
-        msg: "Bitcoin Secured 0.1 is beta quality software. As such, there is a small but real chance of software error. Please don't use this system to transfer large amounts of Bitcoins until this beta notice is removed."
+        msg: "Bitcoin Secured 0.1 is beta quality software. As such, there is a small but real chance of software error. Please don't use this system until this notice is removed."
       }
     ];
     $scope.addAlert = function(msg) {
