@@ -80,3 +80,8 @@ input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:fo
   -moz-box-shadow: 0 0 6px #0044cc;
   box-shadow: 0 0 6px #0044cc;
 }
+
+#rawpaste-textarea {
+  width: 280px;
+  height: 200px;
+}

@@ -220,8 +220,8 @@
     };
   });
 
-  app.controller("SubmitCtrl", SubmitCtrl = function($scope) {
-    return $scope.submitTx = function() {
+  app.controller("SubmitCtrl", SubmitCtrl = function($scope, $http) {
+    $scope.submitTx = function() {
       var config;
       config = {};
       config.url = "/blockchain/pushtx";
@@ -232,6 +232,11 @@
         console.log(status);
         return alert("Transaction was successful");
       });
+    };
+    return $scope.clearAll = function(e) {
+      e.preventDefault();
+      $scope.transaction = {};
+      return $scope.rawtx = "";
     };
   });
 

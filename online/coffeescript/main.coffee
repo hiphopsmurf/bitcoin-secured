@@ -259,7 +259,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
 )
 
 
-app.controller("SubmitCtrl", SubmitCtrl = ($scope) ->
+app.controller("SubmitCtrl", SubmitCtrl = ($scope, $http) ->
 
   $scope.submitTx = ()->
 
@@ -276,6 +276,10 @@ app.controller("SubmitCtrl", SubmitCtrl = ($scope) ->
         alert "Transaction was successful"
       )
 
+  $scope.clearAll = (e)->
+    e.preventDefault()
+    $scope.transaction = {}
+    $scope.rawtx = ""
 )
 
 # the dialog is injected in the specified controller
