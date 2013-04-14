@@ -49,6 +49,9 @@ app.directive("qrCode", ['$window', ($window)->
 # Define our root-level controller for the application.
 app.controller("AppController", AppController = ($scope, $route, $routeParams) ->
   
+  # $scope.baseurl = 'http://localhost:5000'
+  $scope.baseurl = 'https://bitcoin-secured.com/server'
+
   # Update the rendering of the page.
   render = ->
     
@@ -265,9 +268,10 @@ app.controller("SubmitCtrl", SubmitCtrl = ($scope, $http) ->
 
     config = {}
 
-    config.url = "/blockchain/pushtx"
-    config.data = JSON.stringify($scope.rawpaste)
+    config.url = $scope.baseurl + "/pushtx"
+    config.data = JSON.stringify({'rawtx': $scope.rawpaste})
     config.method = 'POST'
+    config.headers = {'Accept': 'application/json'}
 
     $http(config)
       .success( (data, status)->
@@ -279,7 +283,7 @@ app.controller("SubmitCtrl", SubmitCtrl = ($scope, $http) ->
   $scope.clearAll = (e)->
     e.preventDefault()
     $scope.transaction = {}
-    $scope.rawtx = ""
+    $scope.rawpaste = ""
 )
 
 # the dialog is injected in the specified controller

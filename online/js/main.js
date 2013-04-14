@@ -55,6 +55,7 @@
 
   app.controller("AppController", AppController = function($scope, $route, $routeParams) {
     var render;
+    $scope.baseurl = 'https://bitcoin-secured.com/server';
     render = function() {
       var isDownload, isHome, renderAction, renderPath;
       if (_.isUndefined($route.current.action)) {
@@ -224,9 +225,14 @@
     $scope.submitTx = function() {
       var config;
       config = {};
-      config.url = "/blockchain/pushtx";
-      config.data = JSON.stringify($scope.rawpaste);
+      config.url = $scope.baseurl + "/pushtx";
+      config.data = JSON.stringify({
+        'rawtx': $scope.rawpaste
+      });
       config.method = 'POST';
+      config.headers = {
+        'Accept': 'application/json'
+      };
       return $http(config).success(function(data, status) {
         console.log(data);
         console.log(status);
@@ -236,7 +242,7 @@
     return $scope.clearAll = function(e) {
       e.preventDefault();
       $scope.transaction = {};
-      return $scope.rawtx = "";
+      return $scope.rawpaste = "";
     };
   });
 
