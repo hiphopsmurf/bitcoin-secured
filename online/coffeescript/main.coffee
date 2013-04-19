@@ -8,6 +8,18 @@ app = angular.module("bitcoinSecured", ['ui.bootstrap']).config(['$routeProvider
     action: "download.default"
     controller: DownloadCtrl
     templateUrl: "download.html"
+  ).when("/about",
+    action: "about.default"
+    controller: AboutCtrl
+    templateUrl: "about.html"
+  ).when("/instructions",
+    action: "instructions.default"
+    controller: InstructionsCtrl
+    templateUrl: "instructions.html"
+  ).when("/contact",
+    action: "contact.default"
+    controller: ContactCtrl
+    templateUrl: "contact.html"
   )
 
 ])
@@ -75,12 +87,18 @@ app.controller("AppController", AppController = ($scope, $route, $routeParams) -
     # for the navigation.
     isHome = (renderPath[0] is "home")
     isDownload = (renderPath[0] is "download")
+    isAbout = (renderPath[0] is "about")
+    isContact = (renderPath[0] is "contact")
+    isInstructions = (renderPath[0] is "instructions")
     
     # Store the values in the model.
     $scope.renderAction = renderAction
     $scope.renderPath = renderPath
     $scope.isHome = isHome
     $scope.isDownload = isDownload
+    $scope.isAbout = isAbout
+    $scope.isContact = isContact
+    $scope.isInstructions = isInstructions
 
   
   # Listen for changes to the Route. When the route
@@ -146,8 +164,21 @@ app.controller("HomeCtrl", HomeCtrl = ($scope, $location, $dialog) ->
     backdropFade: true
     dialogFade: true
 )
+
 app.controller("DownloadCtrl", DownloadCtrl = ($scope) ->
   $scope.downloads = {}
+)
+
+app.controller("AboutCtrl", AboutCtrl = ($scope) ->
+  $scope.about = {}
+)
+
+app.controller("ContactCtrl", ContactCtrl = ($scope) ->
+  $scope.contactctrl = {}
+)
+
+app.controller("InstructionsCtrl", InstructionsCtrl = ($scope) ->
+  $scope.instructionsctrl = {}
 )
 
 # Embedded controllers in home page
@@ -298,7 +329,7 @@ app.controller("AlertCtrl", AlertCtrl = ($scope) ->
 
   $scope.alerts = [
     type: "error"
-    msg: "Bitcoin Secured 0.1 is beta quality software. As such, there is a small but real chance of software error. Please don't use this system until this notice is removed."
+    msg: "Bitcoin Secured 0.1 is alpha quality software. As such, there is a small but real chance of software error. Please don't use this system until this notice is removed."
   ]
 
   $scope.addAlert = (msg)->

@@ -33,10 +33,10 @@
           <div class="container">
             <ul class="nav">
               <li ng-class="{ active: isHome }"><a href="#/"><i class="icon-home"></i> Home</a></li>
-              <li><a href="#"><i class="icon-wrench"></i> Instructions</a></li>
+              <li ng-class="{ active: isInstructions}"><a href="#/instructions"><i class="icon-wrench"></i> Instructions</a></li>
               <li ng-class="{ active: isDownload }"><a href="#/download"><i class="icon-hdd"></i> Downloads</a></li>
-              <li><a href="#"><i class="icon-eye-open"></i> About</a></li>
-              <li><a href="#"><i class="icon-pencil"></i> Contact</a></li>
+              <li ng-class="{ active: isAbout }"><a href="#/tcoinabout"><i class="icon-eye-open"></i> About</a></li>
+              <li ng-class="{ active: isContact}"><a href="#/contact"><i class="icon-pencil"></i> Contact</a></li>
             </ul>
           </div>
         </div>
@@ -111,6 +111,11 @@
 
     </script>
 
+    <script id="instructions.html" type="text/ng-template">
+      <div>
+        Bitcoin Secured instructions
+      </div>
+    </script>
 
     <script id="download.html" type="text/ng-template">
       <div>
@@ -119,6 +124,7 @@
         <pre>
 7eb7bfd0c1947b0383e2ec6ab28bbe77  bitcoin-secured-offline-0.1.zip
         </pre>
+        <p>Bitcoin signature for above MD5 hash</p>
         <pre>
 -----BEGIN-SIGNATURE-BLOCK-------------------------------------
 Address:    14LKfACXKfnrQxxxtnRRT5uXMkJeTDQteY
@@ -135,6 +141,13 @@ Signature:  aefd7a0b02a6c69fb06b7bea23ffa74cae2a5750630d2ddb59
       </div>
     </script>
 
+    <script id="about.html" type="text/ng-template">
+      About Bitcoin Secured
+    </script>
+
+    <script id="contact.html" type="text/ng-template">
+      Contact Bitcoin Secured
+    </script>
   </div><!-- /container -->
 
 </body>
