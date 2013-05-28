@@ -197,7 +197,7 @@ app.controller("FormCtrl", FormCtrl = ($scope, $http, $dialog) ->
 
   $scope.loadUrl = ()->
 
-    q = "/blockchain/unspent?address=#{$scope.transaction.address}"
+    q = "/blockchain/unspent?address=#{$scope.transaction.address}&cors=true"
 
     tx = {}
 
